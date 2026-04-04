@@ -132,7 +132,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
                     </div>
                     <span className="px-4 py-1.5 bg-white text-gray-900 border border-gray-100 rounded-xl text-sm font-black shadow-sm ring-4 ring-gray-100/30
                     flex items-center gap-2 capitalize">
-                        {getIcons(formData?.alt || 'gemini', 'size-4')} {formData?.provider || 'None'}
+                        {getIcons(formData?.provider || 'gemini', 'size-4')} {formData?.provider || 'None'}
                     </span>
                 </div>
             </div>

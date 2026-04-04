@@ -73,19 +73,19 @@ export const getIcons = (name, className='size-5') =>{
             icon: <LayoutDashboard className={className}/>
         },
         {name: 'gemini',
-            icon: <img src="../../public/gemini.png" alt="gemini" className={className}/>
+            icon: <img src="./gemini.png" alt="gemini" className={className}/>
         },
         {name: 'chatgpt',
-            icon: <img src="../../public/chat.png" alt="chatgpt" className={className}/>
+            icon: <img src="./chat.png" alt="chatgpt" className={className}/>
         },
         {name: 'claude',
-            icon: <img src="../../public/claude.png" alt="claude" className={className}/>
+            icon: <img src="./claude.png" alt="claude" className={className}/>
         },
         {name: 'deepseek',
-            icon: <img src="../../public/deep.png" alt="deepseek" className={className}/>
+            icon: <img src="./deep.png" alt="deepseek" className={className}/>
         },
         {name: 'kimi',
-            icon: <img src="../../public/kimi.png" alt="kimi" className={className}/>
+            icon: <img src="./kimi.png" alt="kimi" className={className}/>
         },
         {name: 'default',
             icon: <Bot className={className}/>

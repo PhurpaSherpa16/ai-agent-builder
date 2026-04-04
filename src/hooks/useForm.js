@@ -1,0 +1,122 @@
+import { useState } from "react"
+
+export default function useForm(initialValues = {}) {
+    const [formData, setFormData] = useState({
+      name: initialValues.name || "",
+      profile: initialValues.profile || "",
+      skills: initialValues.skills || [],
+      layers: initialValues.layers || [],
+      provider: initialValues.provider || "",
+    })
+
+    const [error, setError] = useState({
+      name: "",
+      profile: "",
+      skills: "",
+      layers: "",
+      provider: "",
+    })
+
+    const handleChange = (e) =>{
+      const {name, value} = e.target
+      if(name === "skills"){
+        setFormData((prev)=>({...prev, skills: prev.skills.includes(value) ? prev.skills : [...prev.skills, value]}))
+      }
+      else if(name === "layers"){
+        setFormData((prev)=>({...prev, layers: prev.layers.includes(value) ? prev.layers : [...prev.layers, value]}))
+      }
+      else{
+        setFormData((prev)=>({...prev, [name]: value}))
+      }
+
+    }
+
+    const [isSaved, setIsSaved] = useState('idle');
+
+  const validateForm = (setActiveTab) => {
+    if(!formData.name){
+      setError((prev)=>({...prev, name: '*** Please, Enter the name for your agent ***'}))
+      setActiveTab('details')
+      return false
+    }
+    if(!formData.provider){
+      setError((prev)=>({...prev, provider: '*** Please select at least one AI provider ***'}))
+      setActiveTab('details')
+      return false
+    }
+    if(!formData.profile){
+      setError((prev)=>({...prev, profile: '*** Please, Select the base profile for your agent ***'}))
+      setActiveTab('profile')
+      return false
+    }
+    if(formData.skills.length === 0){
+      setError((prev)=>({...prev, skills: '*** Please, Select the base profile for your agent ***'}))
+      setActiveTab('skills')
+      return false
+    }
+    if(formData.layers.length === 0){
+      setError((prev)=>({...prev, layers: '*** Please, Select the base profile for your agent ***'}))
+      setActiveTab('layers')
+      return false
+    }
+    return true
+  }
+
+  const handleSave = async (onSaveSuccess, setActiveTab, editIndex = null) => {
+    try {
+        if(!validateForm(setActiveTab)) return
+        
+        setIsSaved('saving')
+        setError({name: "",provider: "",profile: "",skills: "",layers: ""})
+
+        const existingData = localStorage.getItem('agent_builder_config');
+        let agentsArray = [];
+        
+        if (existingData) {
+            try {
+                const parsed = JSON.parse(existingData);
+                agentsArray = Array.isArray(parsed) ? parsed : [parsed];
+            } catch (e) {
+                setError((prev)=>({...prev, name: '*** Error saving agent, Please try again later. ***'}))
+                console.error("Error parsing existing agents:", e);
+                setIsSaved('idle')
+                return
+            }
+        }
+        
+        if (editIndex !== null && editIndex >= 0 && editIndex < agentsArray.length) {
+            // Update existing agent
+            agentsArray[editIndex] = {
+                ...formData,
+                id: agentsArray[editIndex].id || Date.now(),
+            };
+        } else {
+            // Add new agent
+            agentsArray.push({
+                ...formData,
+                id: Date.now(),
+            });
+        }
+
+        localStorage.setItem('agent_builder_config', JSON.stringify(agentsArray));
+        
+        if (onSaveSuccess) onSaveSuccess()
+
+        const delay = Math.floor(Math.random() * 2000) + 500
+        await new Promise(resolve => setTimeout(resolve, delay))
+
+        setIsSaved('saved')
+        setFormData({name: "",profile: "",skills: [],layers: [],provider: ""})
+        
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        setIsSaved('idle')
+    } catch (error) {
+        console.error("Error saving agent:", error)
+        setError((prev)=>({...prev, name: '*** Error saving agent, Please try again later. ***'}))
+        setIsSaved('idle')
+    }
+  };
+
+
+  return {formData, setFormData, handleChange, error, setError, isSaved, setIsSaved, handleSave}
+}

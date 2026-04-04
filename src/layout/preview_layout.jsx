@@ -8,7 +8,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
     <div className='sticky top-10 bg-white/60 backdrop-blur-xl rounded-lg border border-white/20 shadow
     overflow-hidden transition-all duration-500 hover:shadow-blue-500/10'>
         {/* Header */}
-        <div className="bg-linear-to-r from-indigo-600/10 to-indigo-600/50 p-6 flex justify-between items-center">
+        <div className="bg-linear-to-r from-indigo-600/10 to-indigo-600/50 p-6 flex flex-col gap-4 md:flex-row justify-between md:items-center">
             <div className="flex items-center gap-3">
                 <div className="bg-indigo-600 p-2 rounded-xl text-white shadow-lg shadow-indigo-600/20">
                     <Bot className="size-5" />
@@ -19,7 +19,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
                 </div>
             </div>
             <button onClick={()=>handleSave(onSaveSuccess)} disabled={isSaved === 'saving' || isSaved === 'saved'}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 
+                className={`flex w-fit ml-auto items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 
                     transform active:scale-95 cursor-pointer group disabled:opacity-80 disabled:cursor-not-allowed ${
                     isSaved === 'saving'
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 scale-105'

@@ -1,1 +1,79 @@
 @import "tailwindcss";
+
+*{
+  box-sizing: border-box;
+}
+
+@utility container{
+  margin-inline : auto;
+}
+
+
+@layer utilities{
+    h1{
+        @apply
+        text-xl md:text-2xl lg:text-4xl font-bold tracking-wide
+    }
+
+    p{
+        @apply
+        text-black/60 text-sm
+    }
+
+    button{
+        @apply
+        cursor-pointer
+        disabled:cursor-not-allowed
+        text-sm
+    }
+
+    label{
+        @apply
+        text-sm font-bold block
+    }
+
+    .card_style{
+      @apply
+      bg-gray-50 border border-gray-200/60 
+      rounded-lg p-4 md:p-8 shadow
+    }
+
+    input[type="text"]{
+      @apply
+      bg-white rounded border border-gray-400/60 
+      w-full 
+      focus:outline-indigo-700 
+      pl-10 py-2
+      text-sm
+    }
+
+    .text_icon{
+        @apply
+        size-5 absolute left-2
+    }
+
+    .error{
+        @apply
+        text-red-500 text-sm
+    }
+
+    .menuList{
+      @apply
+      block py-1 w-20 hover:bg-gray-100
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -468px 0 }
+      100% { background-position: 468px 0 }
+    }
+
+    .skeleton {
+      background: #f6f7f8;
+      background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+      background-repeat: no-repeat;
+      background-size: 800px 104px;
+      display: inline-block;
+      position: relative;
+      animation: shimmer 1.5s infinite linear forwards;
+    }
+}

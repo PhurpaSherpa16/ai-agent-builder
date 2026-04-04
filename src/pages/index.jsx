@@ -10,7 +10,7 @@ import { Plus, Bot, RotateCwIcon } from "lucide-react"
 import { useFetch } from "../hooks/useFetch"
 
 export default function Home() {
-  const { agents, loading, deleteAgent, error: fetchError } = useAgents()
+  const { agents, loading, deleteAgent, error: fetchError, deletingId } = useAgents()
   const {data, loading:fetchLoading} = useFetch()
 
   const [selectedAgent, setSelectedAgent] = useState(null)
@@ -59,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-12 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto space-y-12 ">
+        <div className="max-w-7xl mx-auto space-y-12">
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
                     <div className="flex items-center gap-3 text-indigo-600 font-bold text-sm uppercase tracking-[0.2em]">
@@ -83,7 +83,6 @@ export default function Home() {
                 </div>
             )} 
 
-            <div className="flex items-center justify-center">
                 {fetchError && !loading && (
                 <StatusState title="Failed to Load Agents" message={fetchError} variant="red" icon={Bot}
                   action={<ActionButton label="Refresh" icon={RotateCwIcon} variant="green" 
@@ -97,18 +96,17 @@ export default function Home() {
                 />
               )} 
 
-              {(enrichedAgents.length > 0 && !loading && !fetchError) && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {enrichedAgents.map((agent, index) => {
-                        return (
-                        <AgentCard key={agent.id || index} item={agent} index={index} 
-                        handleEdit={handleEdit} handleDelete={handleDelete} handleView={handleView}
-                        isSelected={isSelected} setIsSelected={setIsSelected}
-                        />
-                      )})}
-                  </div>
-              )}
-            </div>
+            {(enrichedAgents.length > 0 && !loading && !fetchError) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {enrichedAgents.map((agent, index) => {
+                      return (
+                      <AgentCard key={agent.id || index} item={agent} index={index} 
+                      handleEdit={handleEdit} handleDelete={handleDelete} handleView={handleView}
+                      isSelected={isSelected} setIsSelected={setIsSelected} loading={loading} deletingId={deletingId}
+                      />
+                    )})}
+                </div>
+            )}
         </div>
         
         {isModalOpen && (

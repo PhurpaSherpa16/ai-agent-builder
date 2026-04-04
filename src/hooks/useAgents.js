@@ -6,6 +6,7 @@ export default function useAgents() {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deletingId, setDeletingId] = useState(null)
   const fetchAgents = async () => {
     try {
       setLoading(true);
@@ -24,18 +25,25 @@ export default function useAgents() {
         }
       }
     } catch (error) {
-      console.error("Error parsing agents from local storage:", e);
+      console.error("Error parsing agents from local storage:", error);
       setError('Failed to load agents');
     }finally{
       setLoading(false);
     }
   };
 
-  const deleteAgent = (index) => {
-    const updatedAgents = agents.filter((_, i) => i !== index);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedAgents));
-    setAgents(updatedAgents);
-  };
+  const deleteAgent = async (index) => {
+    setDeletingId(index)
+    try {
+      const delay = Math.floor(Math.random() * 2000) + 1000
+      await new Promise((resolve) => setTimeout(resolve, delay))
+      const updatedAgents = agents.filter((_, i) => i !== index);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedAgents));
+      setAgents(updatedAgents);
+    } finally {
+      setDeletingId(null)
+    }
+  }
 
   useEffect(() => {
     fetchAgents();
@@ -47,5 +55,6 @@ export default function useAgents() {
     error,
     deleteAgent,
     refreshAgents: fetchAgents,
+    deletingId,
   };
 }

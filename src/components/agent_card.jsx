@@ -1,7 +1,7 @@
-import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical } from 'lucide-react'
+import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical, Loader2 } from 'lucide-react'
 import { getIcons } from '../utils/utils'
 
-export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected}) {
+export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected, deletingId, loading}) {
 
   return (
     <div className='group relative bg-white border border-gray-200/60 overflow-hidden rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300'>
@@ -42,6 +42,17 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
                 </div>
             )}
         </div>
+        
+        {/* deleting */}
+        {(deletingId === index) && (
+        <div className='bg-red-100/60 backdrop-blur h-full w-full absolute top-0 left-0 z-100 flex items-center justify-center'>
+            <p className='flex items-center gap-2 text-lg'>
+                Deleting...
+                <Loader2 className='animate-spin text-red-600'/>
+            </p>
+        </div>
+        )}
+
         {/* action buttons */}
         <div className="absolute right-4 top-4 ">
             <button onClick={() => setIsSelected(isSelected === index ? null : index)}

@@ -16,8 +16,6 @@ export default function Profile({ ...formProps }) {
     }
   }) || []
 
-  console.log(data)
-
   return (
     <div className="space-y-8">
       <div>

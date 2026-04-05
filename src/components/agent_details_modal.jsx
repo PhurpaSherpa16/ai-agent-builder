@@ -25,7 +25,7 @@ export default function AgentDetailsModal({ onClose, agent, handleEdit}) {
           </button>
         </div>
 
-        <div className="p-4 md:p-6 py-8 space-y-8 max-h-[70vh] overflow-y-auto">
+        <div className="p-4 md:p-6 py-8 space-y-8 max-h-[55vh] overflow-y-auto">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-indigo-600 font-semibold text-sm uppercase tracking-wider">
                 <Lightbulb size={16} />

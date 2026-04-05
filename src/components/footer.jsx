@@ -28,7 +28,7 @@ export default function Footer() {
     }, [agents])
 
   return (
-    <footer className='fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 shadow-[0_-8px_30px_rgb(0,0,0,0.04)] h-20 flex items-center px-6'>
+    <footer className='fixed bottom-0 left-0 right-0 z-20 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 shadow-[0_-8px_30px_rgb(0,0,0,0.04)] h-20 flex items-center px-6'>
         <div className='max-w-7xl mx-auto w-full'>
             {loading ? (
                 <FooterSkeleton />

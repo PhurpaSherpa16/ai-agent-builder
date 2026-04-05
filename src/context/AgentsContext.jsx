@@ -47,7 +47,28 @@ export function AgentsProvider({ children }) {
     } finally {
       setDeletingId(null);
     }
-  };
+  }
+
+  const getRunningTime = (agent) => {
+      if(agent.isRunning && agent.startTime){
+        return (agent.totalTime || 0) + (Date.now() - agent.startTime)
+      }
+      return agent.totalTime || 0
+  }
+
+  const stats = React.useMemo(() => {
+      if (!agents || agents.length === 0) return { total: 0, active: 0, inactive: 0, max: 0, average: 0 }
+      
+      const uptimes = agents.map(a => getRunningTime(a))
+      return {
+          total: agents.length,
+          active: agents.filter(a => a.isRunning).length,
+          inactive: agents.filter(a => !a.isRunning).length,
+          max: Math.max(...uptimes),
+          total_uptime: uptimes.reduce((a, b) => a + b, 0),
+          average: uptimes.reduce((a, b) => a + b, 0) / agents.length
+      }
+  }, [agents])
 
   useEffect(() => {
     fetchAgents();
@@ -68,6 +89,8 @@ export function AgentsProvider({ children }) {
     refreshAgents: fetchAgents,
     deletingId,
     setAgents,
+    stats,
+    getRunningTime
   };
 
   return (

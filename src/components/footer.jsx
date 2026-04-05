@@ -4,28 +4,7 @@ import { formatTime } from '../utils/utils'
 import { Bot, Activity, PauseCircle, ArrowUpCircle, ArrowDownCircle } from 'lucide-react'
 
 export default function Footer() {
-    const { agents, loading } = useAgents()
-
-    const getRunningTime = (agent) => {
-        if(agent.isRunning && agent.startTime){
-          return (agent.totalTime || 0) + (Date.now() - agent.startTime)
-        }
-        return agent.totalTime || 0
-    }
-
-    const stats = React.useMemo(() => {
-        if (!agents || agents.length === 0) return { total: 0, active: 0, inactive: 0, max: 0, average: 0 }
-        
-        const uptimes = agents.map(a => getRunningTime(a))
-        return {
-            total: agents.length,
-            active: agents.filter(a => a.isRunning).length,
-            inactive: agents.filter(a => !a.isRunning).length,
-            max: Math.max(...uptimes),
-            total_uptime: uptimes.reduce((a, b) => a + b, 0),
-            average: uptimes.reduce((a, b) => a + b, 0) / agents.length
-        }
-    }, [agents])
+    const { agents, loading, stats } = useAgents()
 
   return (
     <footer className='fixed bottom-0 left-0 right-0 z-20 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 shadow-[0_-8px_30px_rgb(0,0,0,0.04)] h-20 flex items-center px-6'>

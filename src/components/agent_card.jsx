@@ -8,7 +8,6 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
 
   return (
     <div className='group relative bg-white border border-gray-200/60 overflow-hidden rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300'>
-        {/* Decorative background element */}
         <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"/>
         
         <div className="relative flex items-center gap-4 mb-6">
@@ -47,8 +46,8 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
         </div>
         
         {/* deleting */}
-        {(deletingId === index) && (
-        <div className='bg-red-100/60 backdrop-blur h-full w-full absolute top-0 left-0 z-100 flex items-center justify-center'>
+        {(deletingId === item.originalIndex) && (
+        <div className='bg-red-100/60 backdrop-blur h-full w-full absolute top-0 left-0 z-50 flex items-center justify-center'>
             <p className='flex items-center gap-2 text-lg'>
                 Deleting...
                 <Loader2 className='animate-spin text-red-600'/>
@@ -56,9 +55,9 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
         </div>
         )}
 
-        <Menus isSelected={isSelected} setIsSelected={setIsSelected} index={index} handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete}/>
+        <Menus isSelected={isSelected} setIsSelected={setIsSelected} item={item} handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete}/>
 
-        <SessionPlayer item={item} index={index} handleStart={handleStart} handleStop={handleStop} handleReset={handleReset} getRunningTime={getRunningTime}/>
+        <SessionPlayer item={item} handleStart={handleStart} handleStop={handleStop} handleReset={handleReset} getRunningTime={getRunningTime}/>
 
     </div>
   )

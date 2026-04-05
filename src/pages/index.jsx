@@ -85,7 +85,6 @@ export default function Home() {
   }
 
   const handleReset = (agent) => {
-    if (!window.confirm(`Are you sure you want to reset the timer for "${agent.name}"?`)) return;
     const updatedAgents = agents.map((a, i) => {
       if (i === agent.originalIndex) {
         return { ...a, isRunning: false, totalTime: 0, startTime: null }

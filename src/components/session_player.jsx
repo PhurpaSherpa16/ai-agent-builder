@@ -19,6 +19,7 @@ export default function SessionPlayer({item, handleStart, handleStop, handleRese
     }, [item.isRunning, item.totalTime, item.startTime, getRunningTime])
 
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+    const [isConfirmReset, setIsConfirmReset] = useState(false)
 
   return (
     <div className="flex items-start justify-between">
@@ -32,7 +33,7 @@ export default function SessionPlayer({item, handleStart, handleStop, handleRese
                         <Play size={16} />
                     </button>
                 )}
-            <button onClick={() => handleReset(item)} className="p-2 bg-gray-50 text-gray-600 rounded-xl hover:bg-gray-100 transition-colors shadow-sm" title="Reset Timer">
+            <button onClick={() => setIsConfirmReset(true)} className="p-2 bg-gray-50 text-gray-600 rounded-xl hover:bg-gray-100 transition-colors shadow-sm" title="Reset Timer">
                 <RotateCcw size={16} />
             </button>
         </div>
@@ -52,10 +53,21 @@ export default function SessionPlayer({item, handleStart, handleStop, handleRese
         {isConfirmOpen && (
             <ConfirmationModal title="Stop Timer" message="Are you sure you want to stop this timer?"
                 handleConfirm={() => {
+                    setIsConfirmReset(false)
                     handleStop(item)
                     setIsConfirmOpen(false)
                 }}
                 handleCancel={() => setIsConfirmOpen(false)}
+            />
+        )}
+        {isConfirmReset && (
+            <ConfirmationModal title="Reset Timer" message="Are you sure you want to reset this timer?"
+                handleConfirm={() => {
+                    setIsConfirmOpen(false)
+                    handleReset(item)
+                    setIsConfirmReset(false)
+                }}
+                handleCancel={() => setIsConfirmReset(false)}
             />
         )}
 

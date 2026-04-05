@@ -76,4 +76,12 @@
       position: relative;
       animation: shimmer 1.5s infinite linear forwards;
     }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 }

@@ -1,6 +1,8 @@
 import { useState } from "react"
+import useAgents from "./useAgents"
 
 export default function useForm(initialValues = {}) {
+    const { agents, setAgents } = useAgents()
     const [formData, setFormData] = useState({
       name: initialValues.name || "",
       profile: initialValues.profile || "",
@@ -69,33 +71,20 @@ export default function useForm(initialValues = {}) {
         setIsSaved('saving')
         setError({name: "",provider: "",profile: "",skills: "",layers: ""})
 
-        const existingData = localStorage.getItem('agent_builder_config');
-        let agentsArray = [];
+        let updatedAgents = [...agents];
         
-        if (existingData) {
-            try {
-                const parsed = JSON.parse(existingData);
-                agentsArray = Array.isArray(parsed) ? parsed : [parsed];
-            } catch (e) {
-                setError((prev)=>({...prev, name: '*** Error saving agent, Please try again later. ***'}))
-                console.error("Error parsing existing agents:", e);
-                setIsSaved('idle')
-                return
-            }
-        }
-        
-        if (editIndex !== null && editIndex >= 0 && editIndex < agentsArray.length) {
+        if (editIndex !== null && editIndex >= 0 && editIndex < updatedAgents.length) {
             // Update existing agent
-            agentsArray[editIndex] = {
+            updatedAgents[editIndex] = {
                 ...formData,
-                id: agentsArray[editIndex].id || Date.now(),
-                startTime : agentsArray[editIndex].startTime,
-                totalTime : agentsArray[editIndex].totalTime,
-                isRunning : agentsArray[editIndex].isRunning,
+                id: updatedAgents[editIndex].id || Date.now(),
+                startTime : updatedAgents[editIndex].startTime,
+                totalTime : updatedAgents[editIndex].totalTime,
+                isRunning : updatedAgents[editIndex].isRunning,
             };
         } else {
             // Add new agent
-            agentsArray.push({
+            updatedAgents.push({
                 ...formData,
                 id: Date.now(),
                 startTime : null,
@@ -104,11 +93,12 @@ export default function useForm(initialValues = {}) {
             });
         }
 
-        localStorage.setItem('agent_builder_config', JSON.stringify(agentsArray));
+        // Update global state, which also triggers the localStorage persistence in the context
+        setAgents(updatedAgents);
         
         if (onSaveSuccess) onSaveSuccess()
 
-        const delay = Math.floor(Math.random() * 2000) + 500
+        const delay = Math.floor(Math.random() * 1500) + 500
         await new Promise(resolve => setTimeout(resolve, delay))
 
         setIsSaved('saved')

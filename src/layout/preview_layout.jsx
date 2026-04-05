@@ -49,24 +49,25 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
         <div className="p-8 space-y-8">
             {/* Agent Name Section */}
             <div className="space-y-1 group transition-all duration-300">
-                <div className="flex items-center gap-2 text-gray-400 font-bold text-xs tracking-[0.2em] uppercase">
-                    <User className="size-3" />
-                    <span>Agent Identity</span>
+                <div className="flex items-center gap-2 text-black/40 font-bold text-xs tracking-[0.2em] uppercase">
+                    <Bot className="size-3" />
+                    <span>AI Agent Identity</span>
                 </div>
-                <h1 className="text-4xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">
+                <h1 className="text-4xl font-black tracking-tight capitalize text-black/80 group-hover:text-blue-600 transition-colors">
                     {formData?.name || 'Unnamed Agent'}
                 </h1>
             </div>
 
             {/* Profile Card */}
             <div className="bg-white/40 p-6 rounded-2xl border border-white/60 shadow-sm transition-all duration-300 hover:border-blue-200 group/card">
-                 <div className="flex items-center gap-2 text-blue-600 font-bold text-xs tracking-widest uppercase mb-4">
+                 <div className="flex items-center gap-2 text-black/40 font-bold text-xs tracking-[0.2em] uppercase mb-4">
                     <Sparkles className="size-3" />
                     <span>Core Profile</span>
                 </div>
                 <div className="space-y-1">
-                    <p className="text-xl font-extrabold text-gray-900 group-hover/card:translate-x-1 transition-transform">
-                        {profile?.name || 'No Profile Selected'}
+                    <p className="text-xl font-extrabold text-gray-900 group-hover/card:translate-x-1 transition-transform
+                    flex items-center gap-2">
+                        {getIcons(profile?.name, 'size-4')} {profile?.name || 'No Profile Selected'}
                     </p>
                     <p className="text-gray-600 leading-relaxed text-sm font-medium">
                         {profile?.description || 'Select a profile to individualize your AI agent.'}
@@ -77,7 +78,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Skills Section */}
                 <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-gray-400 font-bold text-[10px] tracking-[0.2em] uppercase">
+                    <div className="flex items-center gap-2 text-black/40 font-bold text-[10px] tracking-[0.2em] uppercase">
                         <Code className="size-3" />
                         <span>Core Skills</span>
                     </div>
@@ -86,21 +87,21 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
                             formData?.skills?.map((skillId, index) => {
                                 const name = getName(skillId, data);
                                 return (
-                                    <div key={index} className="px-3 py-1.5 bg-blue-50/50 backdrop-blur-sm text-blue-700 rounded-lg text-sm font-bold border 
+                                    <div key={index} className="px-3 py-1.5 bg-blue-50/50 rounded text-sm font-bold border 
                                     border-blue-100/50 flex items-center hover:bg-blue-100 transition-colors shadow-sm gap-2 capitalize">
                                         {getIcons(name, 'size-4')} {name || 'Loading...'}
                                     </div>
                                 )
                             })
                         ) : (
-                            <p className="text-xs text-gray-400 italic font-medium">No skills defined</p>
+                            <p className="text-xs italic font-medium">No skills defined</p>
                         )}
                     </div>
                 </div>
 
                 {/* Layers Section */}
                 <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-gray-400 font-bold text-[10px] tracking-[0.2em] uppercase">
+                    <div className="flex items-center gap-2 text-black/40 font-bold text-[10px] tracking-[0.2em] uppercase">
                         <Layers className="size-3" />
                         <span>Functional Layers</span>
                     </div>
@@ -109,7 +110,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
                             formData?.layers?.map((layerId, index) => {
                                 const name = getName(layerId, data);
                                 return (
-                                    <div key={index} className="px-3 py-1.5 bg-purple-50/50 backdrop-blur-sm text-purple-700 rounded-lg text-sm font-bold 
+                                    <div key={index} className="px-3 py-1.5 bg-purple-50/50 text-sm font-bold 
                                     border border-purple-100/50 hover:bg-purple-100 transition-colors shadow-sm
                                     flex items-center gap-2 capitalize">
                                         {getIcons(name, 'size-4')} {name || 'Loading...'}
@@ -117,7 +118,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
                                 )
                             })
                         ) : (
-                            <p className="text-xs text-gray-400 italic font-medium">No layers active</p>
+                            <p className="text-xs italic font-medium">No layers active</p>
                         )}
                     </div>
                 </div>
@@ -126,7 +127,7 @@ export default function PreviewLayout({data, formData, isSaved, handleSave, onSa
             {/* Provider Section */}
             <div className="pt-4">
                 <div className="flex justify-between items-center p-4 bg-gray-50/30 backdrop-blur-sm rounded-2xl border border-white/50">
-                    <div className="flex items-center gap-2 font-bold text-xs text-gray-500 tracking-widest uppercase">
+                    <div className="flex items-center gap-2 font-bold text-xs text-black/40 tracking-[0.2em] uppercase">
                         <Box className="size-3" />
                         <span>AI Provider</span>
                     </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical, Loader2, Play, Pause, RotateCcw } from 'lucide-react'
 import { formatTime, getIcons } from '../utils/utils'
 import SessionPlayer from './session_player';
+import Menus from './menus';
 
 export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected, deletingId, loading, handleStart, handleStop, handleReset, getRunningTime}) {
 
@@ -25,7 +26,7 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
 
         <div className="relative flex flex-wrap items-center gap-4 mb-6">
             <div className="flex -space-x-2">
-                {item.skills && item.skills.slice(0, 2).map((skill, i) => (
+                {item.skills && item.skills.slice(0, 1).map((skill, i) => (
                     <div key={i} className="px-3 flex items-center gap-1 py-1 bg-gray-100 border-2 border-white rounded-full text-xs font-semibold text-gray-700 capitalize shadow-sm">
                         {getIcons(skill.name)}
                         {skill?.name?.split(" ")[0] || skill}...
@@ -55,41 +56,7 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
         </div>
         )}
 
-        {/* action buttons */}
-        <div className="absolute right-4 top-4 ">
-            <button onClick={() => setIsSelected(isSelected === index ? null : index)}
-            className={`relative p-2 rounded-full transition-all duration-200 z-10 ${
-                isSelected === index 
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' 
-                : 'bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-600'
-            }`}>
-                <EllipsisVertical size={18} />
-            </button>
-            {
-            isSelected === index 
-            &&
-            <div className='absolute right-0 top-10 bg-white border border-gray-200 rounded'>
-                <button onClick={() => {
-                    handleView(index)
-                }} className='menuList ' title="View Details">
-                    View
-                </button>
-                <button onClick={() => {
-                    setIsSelected(null)
-                    handleEdit(index)
-                }} className='menuList'
-                title="Edit Agent">
-                    Edit
-                </button>
-                <button onClick={() => {
-                    setIsSelected(null)
-                    handleDelete(index)}
-                } className='menuList' title="Delete Agent">
-                    Delete
-                </button>
-            </div>
-            }
-        </div>
+        <Menus isSelected={isSelected} setIsSelected={setIsSelected} index={index} handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete}/>
 
         <SessionPlayer item={item} index={index} handleStart={handleStart} handleStop={handleStop} handleReset={handleReset} getRunningTime={getRunningTime}/>
 

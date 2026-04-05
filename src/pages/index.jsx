@@ -20,7 +20,6 @@ export default function Home() {
 
   const handleEdit = (index) => {
     const agent = agents[index]
-    // Navigate to /new and pass agent data in state for editing
     navigate("/new", { state: { agent, isEditing: true, index } })
   }
 
@@ -29,8 +28,6 @@ export default function Home() {
       deleteAgent(index)
     }
   }
-
-  // fetching details of data
   
   const enrichedAgents = useMemo(() => {
     if (!agents || !data) return agents;

@@ -89,12 +89,18 @@ export default function useForm(initialValues = {}) {
             agentsArray[editIndex] = {
                 ...formData,
                 id: agentsArray[editIndex].id || Date.now(),
+                startTime : agentsArray[editIndex].startTime,
+                totalTime : agentsArray[editIndex].totalTime,
+                isRunning : agentsArray[editIndex].isRunning,
             };
         } else {
             // Add new agent
             agentsArray.push({
                 ...formData,
                 id: Date.now(),
+                startTime : null,
+                totalTime : 0,
+                isRunning : false,
             });
         }
 

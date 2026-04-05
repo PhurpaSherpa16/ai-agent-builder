@@ -37,6 +37,19 @@ export const getLayers = (id, layer=[]) =>{
 }
 
 
+export const formatTime = (time) => {
+    if (!time || time < 0) return "00:00";
+    const s = Math.floor(time / 1000) % 60;
+    const m = Math.floor(time / (1000 * 60)) % 60;
+    const h = Math.floor(time / (1000 * 60 * 60)) % 24;
+    const d = Math.floor(time / (1000 * 60 * 60 * 24));
+
+    const pad = (num) => String(num).padStart(2, "0");
+
+    if (d > 0) return `${d}:${pad(h)}:${pad(m)}:${pad(s)}`;
+    if (h > 0) return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    return `${pad(m)}:${pad(s)}`;
+};
   
 
 export const getIcons = (name, className='size-5') =>{

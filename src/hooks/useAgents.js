@@ -49,6 +49,12 @@ export default function useAgents() {
     fetchAgents();
   }, []);
 
+  useEffect(()=>{
+    if (!loading) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(agents))
+    }
+  }, [agents, loading])
+
   return {
     agents,
     loading,
@@ -56,5 +62,6 @@ export default function useAgents() {
     deleteAgent,
     refreshAgents: fetchAgents,
     deletingId,
+    setAgents,
   };
 }

@@ -1,12 +1,14 @@
-import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical, Loader2 } from 'lucide-react'
-import { getIcons } from '../utils/utils'
+import { useState, useEffect } from 'react'
+import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical, Loader2, Play, Pause, RotateCcw } from 'lucide-react'
+import { formatTime, getIcons } from '../utils/utils'
+import SessionPlayer from './session_player';
 
-export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected, deletingId, loading}) {
+export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected, deletingId, loading, handleStart, handleStop, handleReset, getRunningTime}) {
 
   return (
     <div className='group relative bg-white border border-gray-200/60 overflow-hidden rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300'>
         {/* Decorative background element */}
-        <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+        <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"/>
         
         <div className="relative flex items-center gap-4 mb-6">
             <div className="p-3 bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-100 group-hover:bg-indigo-700 transition-colors">
@@ -88,6 +90,9 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
             </div>
             }
         </div>
+
+        <SessionPlayer item={item} index={index} handleStart={handleStart} handleStop={handleStop} handleReset={handleReset} getRunningTime={getRunningTime}/>
+
     </div>
   )
 }

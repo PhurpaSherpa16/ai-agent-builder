@@ -32,7 +32,7 @@ export default function FetchedItem({ data, formData, handleChange, selectedSkil
         <p className="text-sm text-gray-500">{description}</p>
       </div>
 
-      <div className="flex flex-wrap gap-4 2xl:gap-6 relative h-60 bg-white border border-gray-200 rounded-2xl 
+      <div className="flex flex-wrap gap-4 2xl:gap-6 relative h-40 bg-white border border-gray-200 rounded-2xl 
       p-4 overflow-y-scroll">
         {loading ? (
              <ItemSkeleton />

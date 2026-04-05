@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import AgentCard from "../components/agent_card"
 import useAgents from "../hooks/useAgents"
@@ -10,7 +10,7 @@ import { Plus, Bot, RotateCwIcon } from "lucide-react"
 import { useFetch } from "../hooks/useFetch"
 
 export default function Home() {
-  const { agents, loading, deleteAgent, error: fetchError, deletingId } = useAgents()
+  const { agents, loading, deleteAgent, error: fetchError, deletingId, setAgents } = useAgents()
   const {data, loading:fetchLoading} = useFetch()
 
   const [selectedAgent, setSelectedAgent] = useState(null)
@@ -56,6 +56,47 @@ export default function Home() {
     setSelectedAgent(enrichedAgents[index])
     setIsModalOpen(true)
   }
+
+  const handleStart = (index) => {
+    const updatedAgents = agents.map((agent, i) => {
+      if(i === index){
+        return {...agent, isRunning: true, startTime: Date.now()}
+      }
+      return agent
+    })
+    setAgents(updatedAgents)
+  }
+
+  const handleStop = (index) => {
+    const updatedAgents = agents.map((agent, i) => {
+      if(i === index){
+        const startTime = agent.startTime || Date.now()
+        const totalTime = (agent.totalTime || 0) + (Date.now() - startTime)
+        return {...agent, isRunning: false, totalTime, startTime: null}
+      }
+      return agent
+    })
+    setAgents(updatedAgents)
+  }
+
+  const handleReset = (index) => {
+    if (!window.confirm("Are you sure you want to reset the timer?")) return;
+    const updatedAgents = agents.map((agent, i) => {
+      if(i === index){
+        return {...agent, isRunning: false, totalTime: 0, startTime: null}
+      }
+      return agent
+    })
+    setAgents(updatedAgents)
+  }
+  
+  const getRunningTime = (agent) => {
+    if(agent.isRunning && agent.startTime){
+      return (agent.totalTime || 0) + (Date.now() - agent.startTime)
+    }
+    return agent.totalTime || 0
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-12 px-4 md:px-8">
@@ -103,6 +144,7 @@ export default function Home() {
                       <AgentCard key={agent.id || index} item={agent} index={index} 
                       handleEdit={handleEdit} handleDelete={handleDelete} handleView={handleView}
                       isSelected={isSelected} setIsSelected={setIsSelected} loading={loading} deletingId={deletingId}
+                      handleStart={handleStart} handleStop={handleStop} handleReset={handleReset} getRunningTime={getRunningTime}
                       />
                     )})}
                 </div>

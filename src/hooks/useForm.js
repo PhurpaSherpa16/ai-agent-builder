@@ -42,22 +42,22 @@ export default function useForm(initialValues = {}) {
       return false
     }
     if(!formData.provider){
-      setError((prev)=>({...prev, provider: '*** Please select at least one AI provider ***'}))
+      setError((prev)=>({...prev, provider: '*** Please select one AI provider ***'}))
       setActiveTab('details')
       return false
     }
     if(!formData.profile){
-      setError((prev)=>({...prev, profile: '*** Please, Select the base profile for your agent ***'}))
+      setError((prev)=>({...prev, profile: '*** Please, Select the base profile - category for your agent ***'}))
       setActiveTab('profile')
       return false
     }
     if(formData.skills.length === 0){
-      setError((prev)=>({...prev, skills: '*** Please, Select the base profile for your agent ***'}))
+      setError((prev)=>({...prev, skills: '*** Please, Select at least one skill for your agent ***'}))
       setActiveTab('skills')
       return false
     }
     if(formData.layers.length === 0){
-      setError((prev)=>({...prev, layers: '*** Please, Select the base profile for your agent ***'}))
+      setError((prev)=>({...prev, layers: '*** Please, Select at least one layer for your agent ***'}))
       setActiveTab('layers')
       return false
     }

@@ -128,7 +128,7 @@ export default function Home() {
         )}
 
         {agents.length === 0 && !loading && !fetchError && (
-          <StatusState title="No Agents Operational" message="Bring your first custom AI agent to life by clicking the button above." variant="indigo" icon={Bot}
+          <StatusState title="No Agents Operational" message="Bring your first custom AI agent to life by clicking the Create New Agent button." variant="indigo" icon={Bot}
             action={<ActionButton to="/new" label="Create New Agent" icon={Plus} />}
           />
         )}

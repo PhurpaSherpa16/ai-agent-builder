@@ -21,7 +21,7 @@ export default function Profile({ ...formProps }) {
       <div>
         <div className='block mb-4'>
           <label htmlFor="profile-select ">Base Profile</label>
-          <p className='text-sm text-gray-500'>Select the base profile for your agent</p>
+          <p className='text-sm text-gray-500'>Select the base profile - category for your agent</p>
         </div>
         <div id="profile-select" className="flex gap-4 flex-wrap h-70 md:h-full overflow-y-scroll">
           {loading ? (
@@ -37,7 +37,7 @@ export default function Profile({ ...formProps }) {
           )}
         </div>
         {formError?.profile && formData.profile === '' && (
-          <p className='error pt-4'>*** Please, Select the base profile for your agent ***</p>
+          <p className='error pt-4'>{formError.profile}</p>
         )}
       </div>
 

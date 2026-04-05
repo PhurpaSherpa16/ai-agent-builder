@@ -3,8 +3,12 @@ import { Eye, Edit3, Trash2, User, Shield, Bot, EllipsisVertical, Loader2, Play,
 import { formatTime, getIcons } from '../utils/utils'
 import SessionPlayer from './session_player';
 import Menus from './menus';
+import { ItemSkeleton } from './skeleton';
 
 export default function AgentCard({item, index, handleEdit, handleDelete, handleView, isSelected, setIsSelected, deletingId, loading, handleStart, handleStop, handleReset, getRunningTime}) {
+    if(!item) return <ItemSkeleton/>
+
+    console.log(item.profile.name)
 
   return (
     <div className='group relative bg-white border border-gray-200/60 overflow-hidden rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300'>
@@ -18,7 +22,7 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{item.name}</h3>
                 <p className="text-gray-500 text-sm flex items-center gap-1">
                     {getIcons(item.profile?.name, 'size-4')}
-                    <span className="capitalize">{item.profile?.name || item.profile || "Assistant"}</span>
+                    <span className="capitalize">{item.profile?.name || 'Loading...'}</span>
                 </p>
             </div>
         </div>
@@ -28,7 +32,7 @@ export default function AgentCard({item, index, handleEdit, handleDelete, handle
                 {item.skills && item.skills.slice(0, 1).map((skill, i) => (
                     <div key={i} className="px-3 flex items-center gap-1 py-1 bg-gray-100 border-2 border-white rounded-full text-xs font-semibold text-gray-700 capitalize shadow-sm">
                         {getIcons(skill.name)}
-                        {skill?.name?.split(" ")[0] || skill}...
+                        {skill?.name?.split(" ")[0] || 'Loading'}...
                     </div>
                 ))}
                 {item.skills && item.skills.length > 2 && (

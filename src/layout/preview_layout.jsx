@@ -4,6 +4,7 @@ import { Save, Check, User, Box, Code, Layers, Bot, Sparkles, Loader2 } from "lu
 export default function PreviewLayout({data, formData, isSaved, handleSave, onSaveSuccess, isEditing, setActiveTab}) {
   const profile = getProfileDetails(formData?.profile, data);
 
+
   return (
     <div className='sticky top-10 bg-white/60 backdrop-blur-xl rounded-lg border border-white/20 shadow
     overflow-hidden transition-all duration-500 hover:shadow-blue-500/10'>

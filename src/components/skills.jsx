@@ -21,6 +21,8 @@ export default function Skills({ ...formProps }) {
     data: data?.skills, title: 'Available Skills',  handleChange, name: name, loading,
     description: "Browse and add technical capabilities to your agent." }
 
+  console.log(formData)
+
   return (
     <div className="space-y-8">
       

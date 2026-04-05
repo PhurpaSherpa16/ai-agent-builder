@@ -5,7 +5,7 @@ import { RiCustomerService2Fill } from "react-icons/ri"
 import { useFetch } from "../hooks/useFetch"
 
 export const getProfileDetails = (id, data) =>{
-    return data?.agentProfiles?.find((profile)=> profile.id === id)   
+    return data?.agentProfiles?.find((profile)=> profile.id === id)
 }
 
 

@@ -1,15 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useAgents from "./useAgents"
 
 export default function useForm(initialValues = {}) {
     const { agents, setAgents } = useAgents()
-    const [formData, setFormData] = useState({
-      name: initialValues.name || "",
-      profile: initialValues.profile || "",
-      skills: initialValues.skills || [],
-      layers: initialValues.layers || [],
-      provider: initialValues.provider || "",
+    console.log(initialValues)
+
+    const mapInitialValues = (values) => ({
+      name: values?.name || "",
+      profile: typeof values?.profile === "object" ? values?.profile?.id : values?.profile || "",
+      skills: values?.skills?.map((skill) => typeof skill === "object" ? skill.id : skill) || [],
+      layers: values?.layers?.map((layer) => typeof layer === "object" ? layer.id : layer) || [],
+      provider: values?.provider || "",
     })
+
+    const [formData, setFormData] = useState(mapInitialValues(initialValues) || {})
+    
 
     const [error, setError] = useState({
       name: "",

@@ -41,9 +41,11 @@ export default function SessionPlayer({item, handleStart, handleStop, handleRese
         <div className="relative flex items-center justify-center">
                 {item.isRunning && <div className='size-10 bg-green-600/20 rounded-full absolute animate-ping'/>}
 
-            <div className='relative z-20'>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Uptime</span>
-                <p className="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
+            <div className='relative z-20 text-center'>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">
+                    {item.isRunning ? "Running Time" : "Uptime"}
+                </span>
+                <p className="text-xs font-mono font-bold w-fit mx-auto text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
                     {formatTime(runningTime)}
                 </p>
             </div>

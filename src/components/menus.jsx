@@ -24,6 +24,7 @@ export default function Menus({isSelected, setIsSelected, item, handleView, hand
                     View
                 </button>
                 <button onClick={() => {
+                    console.log('from edit button:', item)
                     setIsSelected(null)
                     handleEdit(item)
                 }} className='menuList text-left pl-4'

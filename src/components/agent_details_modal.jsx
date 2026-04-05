@@ -83,7 +83,7 @@ export default function AgentDetailsModal({ onClose, agent, handleEdit}) {
              <button onClick={onClose} className="px-8 py-3 bg-gray-400 text-white rounded-xl font-semibold hover:bg-red-700 transition-all shadow-lg hover:shadow-indigo-200">
                 Close Details
              </button>
-             <button onClick={handleEdit} className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-200">
+             <button onClick={() => handleEdit(agent)} className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-200">
                 Edit Agent
              </button>
              

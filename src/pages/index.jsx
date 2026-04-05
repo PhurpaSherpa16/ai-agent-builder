@@ -19,6 +19,7 @@ export default function Home() {
   const navigate = useNavigate()
 
   const handleEdit = (agent) => {
+    console.log(agent)
     navigate("/new", { state: { agent, isEditing: true, index: agent.originalIndex } })
   }
 
@@ -178,7 +179,7 @@ export default function Home() {
       </div>
 
       {isModalOpen && (
-        <AgentDetailsModal onClose={() => setIsModalOpen((p) => !p)} agent={selectedAgent} handleEdit={() => handleEdit(isSelected)} />
+        <AgentDetailsModal onClose={() => setIsModalOpen((p) => !p)} agent={selectedAgent} handleEdit={handleEdit} />
       )}
     </div>
   )
